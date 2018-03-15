@@ -4,21 +4,19 @@ var Category = models.Category;
 
 function index(req, res) {
   Game.findAll().then(games => {
-    if (err) res.send(err);
-    else res.json(games);
+    res.json(games);
   });
 }
 
 function create(req, res) {
-  Game.create(req.body, function(err, game){
-    if (err) res.end(err);
-    else res.json(game);
+  Game.create(req.body, function(game){
+    res.json(game);
   });
 }
 
 function show(req, res) {
   Game.findById(req.params.game_id).then(game => {
-    if (game) res.json(game);
+    res.json(game);
   });  
 }
 
