@@ -1,4 +1,5 @@
-var models = require('../models')
+var models = require('../models');
+var Game = models.Game;
 var Category = models.Category;
 
 function index(req, res) {
@@ -8,9 +9,12 @@ function index(req, res) {
 }
 
 function create(req, res) {
-  Category.create(req.body, function(err, category){
+  Category.create({ 
+    gameId: parseInt(req.params.game_id),
+    ...req.body
+  }).then(category => {
     res.json(category);
-  });
+  })
 }
 
 function update(req, res) {

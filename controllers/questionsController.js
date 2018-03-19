@@ -7,11 +7,11 @@ function index(req, res) {
   });
 }
 
-// function create(req, res) {
-//   Question.create(req.body, function(err, question){
-//     res.json(question);
-//   });
-// }
+function create(req, res) {
+  Question.create(req.body, function(err, question){
+    res.json(question);
+  });
+}
 
 // function update(req, res) {
 //   Question.update(req.body, { 
@@ -23,19 +23,19 @@ function index(req, res) {
 //   });
 // }
 
-// function destroy(req, res) {
-//   Question.destroy({ 
-//     where: { 
-//       id: req.params.question_id 
-//     } 
-//   }).then(question => {
-//     res.send("question deleted");
-//   }); 
-// }
+function destroy(req, res) {
+  Question.destroy({ 
+    where: { 
+      id: req.params.question_id 
+    } 
+  }).then(question => {
+    res.send("question deleted");
+  }); 
+}
 
 module.exports = {
   index: index,
-  // create: create,
+  create: create,
   // update: update,
-  // destroy: destroy
+  destroy: destroy
 }
