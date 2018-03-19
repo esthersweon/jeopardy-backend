@@ -8,34 +8,37 @@ function index(req, res) {
 }
 
 function create(req, res) {
-  Question.create(req.body, function(err, question){
+  Question.create({
+    categoryId: req.params.category_id,
+    ...req.body
+  }).then(question => {
     res.json(question);
   });
 }
 
-// function update(req, res) {
-//   Question.update(req.body, { 
-//     where: { 
-//       id: req.params.question_id 
-//     } 
-//   }).then(question => {
-//     res.json(question);
-//   });
-// }
+function update(req, res) {
+  Question.update(req.body, { 
+    where: { 
+      id: req.params.question_id 
+    } 
+  }).then(question => {
+    res.json(question);
+  });
+}
 
 function destroy(req, res) {
   Question.destroy({ 
     where: { 
       id: req.params.question_id 
     } 
-  }).then(question => {
-    res.send("question deleted");
+  }).then(questionDeleted => {
+    res.json(questionDeleted);
   }); 
 }
 
 module.exports = {
   index: index,
   create: create,
-  // update: update,
+  update: update,
   destroy: destroy
 }

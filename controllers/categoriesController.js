@@ -1,6 +1,7 @@
 var models = require('../models');
 var Game = models.Game;
 var Category = models.Category;
+var Question = models.Question;
 
 function index(req, res) {
   Category.findAll({ where: { gameId: req.params.game_id } }).then(function(categories) {
@@ -10,7 +11,7 @@ function index(req, res) {
 
 function create(req, res) {
   Category.create({ 
-    gameId: parseInt(req.params.game_id),
+    gameId: req.params.game_id,
     ...req.body
   }).then(category => {
     res.json(category);
@@ -28,13 +29,19 @@ function update(req, res) {
 }
 
 function destroy(req, res) {
-  Category.destroy({ 
-    where: { 
-      id: req.params.category_id 
-    } 
-  }).then(category => {
-    res.send("category deleted");
-  }); 
+  Question.destroy({
+    where: {
+      categoryId: req.params.category_id
+    }
+  }).then(questionsDeleted => {
+    Category.destroy({ 
+      where: { 
+        id: req.params.category_id 
+      } 
+    }).then(categoryDeleted => {
+      res.json(categoryDeleted)
+    }); 
+  });
 }
 
 module.exports = {

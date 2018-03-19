@@ -9,7 +9,7 @@ function index(req, res) {
 }
 
 function create(req, res) {
-  Game.create(req.body, function(game){
+  Game.create(req.body).then(game => {
     res.json(game);
   });
 }
@@ -31,13 +31,19 @@ function update(req, res) {
 }
 
 function destroy(req, res) {
-  Game.destroy({ 
-    where: { 
-      id: req.params.game_id 
-    } 
-  }).then(game => {
-    res.send("game deleted");
-  }); 
+  // Category.destroy({
+  //   where: {
+  //     gameId: req.params.game_id
+  //   }
+  // }).then(categoriesDeleted => {
+  //   Game.destroy({ 
+  //     where: { 
+  //       id: req.params.game_id 
+  //     } 
+  //   }).then(gameDeleted => {
+  //     res.json(gameDeleted)
+  //   }); 
+  // });
 }
 
 module.exports = {
